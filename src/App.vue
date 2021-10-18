@@ -1,32 +1,34 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+  <div id="app" class="App min-w-screen min-h-screen flex flex-col bg-grey-lightest font-sans">
+    <Header />
+    <div class="container mx-auto px-4">
+      <SubmitLink />
+      <Links v-if="!submitClicked" />
+      <CreateLink v-else />
     </div>
-    <router-view/>
   </div>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import { mapState } from 'vuex'
+import Header from '@/components/Header.vue'
+import SubmitLink from '@/components/SubmitLink.vue'
+import CreateLink from '@/components/CreateLink.vue'
+import Links from '@/components/Links.vue'
 
-#nav {
-  padding: 30px;
+export default {
+  name: 'App',
+  components: {
+    Header,
+    SubmitLink,
+    Links,
+    CreateLink
+  },
+  computed:{
+    ...mapState([
+      "submitClicked",
+      "links"
+    ])
+  }
 }
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+</script>
